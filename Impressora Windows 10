@@ -1,5 +1,8 @@
 @echo off
 rem Este script executa adição em registro para impressora compartilhada e outras configurações no Windows 10.
+rem Autor: Eliton Machado
+rem Data: 06/11/2024
+rem Versao: 1.0
 
 rem ------------------------------
 rem Configurações para Impressora
