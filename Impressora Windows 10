@@ -1,1 +1,64 @@
+@echo off
+rem Este script executa adição em registro para impressora compartilhada e outras configurações no Windows 10.
+
+rem ------------------------------
+rem Configurações para Impressora
+rem ------------------------------
+
+rem Adiciona a entrada RpcAuthnLevelPrivacyEnabled com o valor 0 na chave especificada.
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print" /v RpcAuthnLevelPrivacyEnabled /t REG_DWORD /d 0 /f
+
+rem Adiciona a entrada SplWOW64TimeOutSeconds com o valor 0x3c na chave especificada no Registro.
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print" /v SplWOW64TimeOutSeconds /t REG_DWORD /d 0x3c /f
+
+rem Adiciona a entrada 713073804 com o valor 0 na chave especificada no Registro.
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Policies\Microsoft\FeatureManagement\Overrides" /v 713073804 /t REG_DWORD /d 0 /f
+
+rem ------------------------------
+rem Configurações Adicionais
+rem ------------------------------
+
+rem 1. Adiciona a entrada DnsOnWire com o valor 1
+set reg_key=HKEY_LOCAL_MACHINE\system\currentcontrolset\control\print
+set reg_value=DnsOnWire
+set reg_type=REG_DWORD
+set reg_data=1
+
+reg add "%reg_key%" /v %reg_value% /t %reg_type% /d %reg_data% /f
+
+if %errorlevel% equ 0 (
+    echo DnsOnWire adicionado com sucesso.
+) else (
+    echo Falha ao adicionar DnsOnWire.
+)
+
+rem 2. Adiciona a entrada DisableStrictNameChecking com o valor 1
+set reg_key=HKEY_LOCAL_MACHINE\system\currentcontrolset\services\lanmanserver\parameters
+set reg_value=DisableStrictNameChecking
+set reg_type=REG_DWORD
+set reg_data=1
+
+reg add "%reg_key%" /v %reg_value% /t %reg_type% /d %reg_data% /f
+
+if %errorlevel% equ 0 (
+    echo DisableStrictNameChecking adicionado com sucesso.
+) else (
+    echo Falha ao adicionar DisableStrictNameChecking.
+)
+
+rem 3. Adiciona a entrada OptionalNames com o valor "aliasname"
+set reg_key=HKEY_LOCAL_MACHINE\system\currentcontrolset\services\lanmanserver\parameters
+set reg_value=OptionalNames
+set reg_type=REG_SZ
+set reg_data="aliasname"
+
+reg add "%reg_key%" /v %reg_value% /t %reg_type% /d %reg_data% /f
+
+if %errorlevel% equ 0 (
+    echo OptionalNames adicionado com sucesso.
+) else (
+    echo Falha ao adicionar OptionalNames.
+)
+
+echo Todas as entradas foram processadas.
 
