@@ -2,7 +2,7 @@
 rem Este script executa adições no registro para configurações de impressora e outras opções no Windows 10, gerando log em C:\programas
 
 rem Defina o caminho do log
-set log_file=C:\logs\registro_log.txt
+set log_file=C:\programas\registro_log.txt
 
 rem Cria o diretório C:\programas se ele não existir
 if not exist C:\programas mkdir C:\programas
